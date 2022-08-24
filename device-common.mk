@@ -29,6 +29,9 @@ DEVICE_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     SettingsProviderResCommon
 
+# Partitions
+$(call inherit-product, $(SRC_TARGET_DIR)/product/non_ab_device.mk)
+
 # APEX
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 

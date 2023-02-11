@@ -19,7 +19,12 @@ COMMON_PATH := device/samsung/universal8895-common
 # Shipping API
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 
-DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
+
+# Enforced RRO targets
+PRODUCT_ENFORCE_RRO_TARGETS := *
+DEVICE_PACKAGE_OVERLAYS += \
+    $(COMMON_PATH)/overlay
+
 
 PRODUCT_PACKAGES += \
     SettingsProviderResCommon

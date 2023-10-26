@@ -143,6 +143,7 @@ BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/ramdisk/etc/fstab.samsungexynos8895
+TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 
 # Wifi
 TARGET_USES_64_BIT_BCMDHD        := true

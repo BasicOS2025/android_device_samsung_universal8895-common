@@ -383,7 +383,9 @@ PRODUCT_PACKAGES += \
     TetheringConfigOverlay \
     wpa_supplicant \
     wpa_supplicant.conf \
-    android.hardware.wifi-service
+    android.hardware.wifi-service \
+    iw_vendor \
+    wireless-regdomain.sh
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/ramdisk/etc/wifi.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/wifi.rc

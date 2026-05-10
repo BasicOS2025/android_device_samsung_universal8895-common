@@ -972,3 +972,17 @@ service swapon /sbin/sswap -s -f 2048
     group root
     seclabel u:r:sswap:s0
     oneshot
+
+service wireless_regdomain_update /vendor/bin/wireless-regdomain.sh
+  class main
+  user root
+  group root
+  oneshot
+  seclabel u:r:su:s0
+  disabled
+
+on property:gsm.operator.iso-country=*
+  start wireless_regdomain_update
+
+on property:gsm.sim.operator.iso-country=*
+  start wireless_regdomain_update

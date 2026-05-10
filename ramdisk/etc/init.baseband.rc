@@ -30,8 +30,9 @@ on fs
     chown radio radio /data/log/err
 
 # SS/DS configuration
-on property:ro.multisim.simslotcount=*
-   write /sys/module/modem_ctrl_ss310ap/parameters/ds_detect ${ro.multisim.simslotcount}
+on property:ro.telephony.sim_slots.count=*
+    write /sys/module/modem_ctrl_ss310ap/parameters/ds_detect ${ro.telephony.sim_slots.count}
+    setprop ro.vendor.multisim.simslotcount ${ro.telephony.sim_slots.count}
 
 on property:ro.multisim.simslotcount=1
     setprop persist.radio.multisim.config ss

@@ -315,6 +315,9 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl.samsung \
     android.hardware.sensors@1.0-service
 
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/vndk/android.frameworks.schedulerservice@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/android.frameworks.schedulerservice@1.0.so
+
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 

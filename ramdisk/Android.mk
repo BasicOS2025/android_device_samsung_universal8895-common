@@ -81,4 +81,5 @@ LOCAL_MODULE_TAGS      := optional
 LOCAL_MODULE_CLASS     := EXECUTABLES
 LOCAL_SRC_FILES        := etc/wireless-regdomain.sh
 LOCAL_VENDOR_MODULE    := true
+LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)

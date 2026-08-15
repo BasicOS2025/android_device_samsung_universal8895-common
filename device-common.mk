@@ -275,6 +275,15 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/permissions/com.samsung.permission.HRM_EXT.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.HRM_EXT.xml \
     $(COMMON_PATH)/configs/permissions/com.samsung.permission.SSENSOR.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.SSENSOR.xml
 
+# IMS over Wi-Fi data service and network qualification service.
+PRODUCT_PACKAGES += \
+    Iwlan \
+    QualifiedNetworksService \
+    PhhIms
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/privapp-permissions-me.phh.ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-me.phh.ims.xml
+
 # ramdisk
 PRODUCT_PACKAGES += \
     fstab.samsungexynos8895 \

@@ -32,6 +32,8 @@ on init
 
     symlink /dev/block/platform/11120000.ufs /dev/block/bootdevice
 
+    mount tmpfs tmpfs /metadata size=16m
+
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864

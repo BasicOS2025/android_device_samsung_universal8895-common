@@ -414,5 +414,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/ramdisk/etc/fstab.samsungexynos8895:$(TARGET_COPY_OUT_RAMDISK)/fstab.samsungexynos8895
 
+# Metadata
+BOARD_USES_METADATA_PARTITION := true
+
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal8895-common/universal8895-common-vendor.mk)

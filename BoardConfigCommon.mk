@@ -90,8 +90,8 @@ TARGET_KERNEL_LLVM_BINUTILS := false
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TOP_PATH := $(realpath $(TOP))
-KERNEL_TOOLCHAIN := $(TOP_PATH)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/aarch64-linux-android-4.9/bin
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-androidkernel-
+KERNEL_TOOLCHAIN := $(TOP_PATH)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/arm-gnu-toolchain-15.2.rel1-x86_64-aarch64-none-linux-gnu/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-none-linux-gnu-
 
 # Kernel config
 TARGET_KERNEL_SOURCE := kernel/samsung/universal8895

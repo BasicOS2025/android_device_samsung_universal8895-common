@@ -1,0 +1,3 @@
+# Allow NetworkStack to read /sys/devices/virtual/net/wlan0/mtu for APF packet filter compilation
+allow network_stack sysfs_net:dir search;
+allow network_stack sysfs_net:file r_file_perms;

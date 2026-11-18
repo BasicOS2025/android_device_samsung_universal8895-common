@@ -91,6 +91,9 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
 # Graphics
+$(call soong_config_set_bool,libui,legacy_gralloc,true)
+$(call soong_config_set_bool,libion,legacy_impl,true)
+
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := xlarge
 PRODUCT_AAPT_PREF_CONFIG := xxxhdpi

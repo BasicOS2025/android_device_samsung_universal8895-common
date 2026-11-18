@@ -292,7 +292,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.allow_ims_off=1
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/privapp-permissions-me.phh.ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-me.phh.ims.xml
+    $(COMMON_PATH)/privapp-permissions-me.phh.ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-me.phh.ims.xml
 
 # ramdisk
 PRODUCT_PACKAGES += \

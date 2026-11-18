@@ -19,6 +19,9 @@ COMMON_PATH := device/samsung/universal8895-common
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
+# ART: these Linux 4.4 defconfigs do not enable userfaultfd.
+OVERRIDE_ENABLE_UFFD_GC := false
+
 # Include path
 $(call soong_config_set,samsungVars,target_specific_header_path,device/samsung/universal8895-common/include)
 

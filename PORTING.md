@@ -41,3 +41,8 @@ Samsung cpuset commands to cpus/mems/family_boost and initialize the extra
 surfaceflinger group before assigning its CPU mask.
 
 Requires kernel cpuset_v2_mode backport documented in ANDROID17-CPUSET.md.
+
+The remaining vendor task-profile overrides are limited to Frozen/Unfrozen:
+move tasks into the existing v1 frozen group or back to its root, instead of
+writing v2 cgroup.freeze commands to an unsupported kernel interface.
+Other scheduling profiles remain inherited from the Android 17 platform.

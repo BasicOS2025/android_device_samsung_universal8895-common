@@ -46,3 +46,7 @@ The remaining vendor task-profile overrides are limited to Frozen/Unfrozen:
 move tasks into the existing v1 frozen group or back to its root, instead of
 writing v2 cgroup.freeze commands to an unsupported kernel interface.
 Other scheduling profiles remain inherited from the Android 17 platform.
+
+Recovery init follows the same noprefix cpuset layout, without remounting
+controllers already owned by libprocessgroup. Cpuset directories use traversable
+0755 modes instead of the legacy 0664 file modes.

@@ -1,22 +1,21 @@
 on early-init
-    mkdir /dev/cpuset 0664 root system
-    mount cgroup cpuset /dev/cpuset cpuset
-    mkdir /dev/cpuset/foreground 0664 root system
-    mkdir /dev/cpuset/background 0664 root system
-    mkdir /dev/cpuset/system-background 0664 root system
-    mkdir /dev/cpuset/top-app 0664 root system
-    mkdir /dev/cpuset/restricted 0664 root system
+    mkdir /dev/cpuset 0755 root system
+    mkdir /dev/cpuset/foreground 0755 root system
+    mkdir /dev/cpuset/background 0755 root system
+    mkdir /dev/cpuset/system-background 0755 root system
+    mkdir /dev/cpuset/top-app 0755 root system
+    mkdir /dev/cpuset/restricted 0755 root system
 
-    write /dev/cpuset/foreground/cpuset.cpus 0-2
-    write /dev/cpuset/foreground/cpuset.mems 0
-    write /dev/cpuset/background/cpuset.cpus 0-1
-    write /dev/cpuset/background/cpuset.mems 0
-    write /dev/cpuset/system-background/cpuset.cpus 0-1
-    write /dev/cpuset/system-background/cpuset.mems 0
-    write /dev/cpuset/top-app/cpuset.cpus 0-3
-    write /dev/cpuset/top-app/cpuset.mems 0
-    write /dev/cpuset/restricted/cpuset.cpus 1
-    write /dev/cpuset/restricted/cpuset.mems 0
+    write /dev/cpuset/foreground/cpus 0-2
+    write /dev/cpuset/foreground/mems 0
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/background/mems 0
+    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/system-background/mems 0
+    write /dev/cpuset/top-app/cpus 0-3
+    write /dev/cpuset/top-app/mems 0
+    write /dev/cpuset/restricted/cpus 1
+    write /dev/cpuset/restricted/mems 0
 
     wait /dev/block/platform/11120000.ufs
     symlink /dev/block/platform/11120000.ufs /dev/block/bootdevice

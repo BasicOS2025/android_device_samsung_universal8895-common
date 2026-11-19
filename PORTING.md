@@ -55,3 +55,8 @@ The camera wrapper imports CameraParameters from its linked libcamera_compat
 implementation, which now exports its own headers. The removed platform
 camera_headers module is no longer referenced; using the matching local class
 header also avoids coupling the legacy implementation to a newer framework ABI.
+
+Power HAL is exported from hardware/google/pixel/power-libperfmgr, matching
+its actual Android 17 Soong namespace. The previous Samsung path did not exist.
+The removed disable_configstore package is no longer selected; no dummy module
+is introduced and SurfaceFlinger's existing property configuration is retained.

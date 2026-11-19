@@ -115,10 +115,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
-# ConfigStore
-PRODUCT_PACKAGES += \
-    disable_configstore
-
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0.vendor \
@@ -352,7 +348,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/samsung \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/samsung/aidl/power-libperfmgr
+    hardware/google/pixel/power-libperfmgr
 
 # Shims
 PRODUCT_PACKAGES += \

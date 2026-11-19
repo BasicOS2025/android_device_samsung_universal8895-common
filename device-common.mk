@@ -87,8 +87,7 @@ TARGET_SCREEN_WIDTH := 1440
 
 # Control groups and task profiles
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
-    $(COMMON_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
+    $(COMMON_PATH)/configs/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json
 
 # Graphics
 $(call soong_config_set_bool,libui,legacy_gralloc,true)

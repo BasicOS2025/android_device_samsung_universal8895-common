@@ -27,3 +27,17 @@ defined by Android 17 system/core/watchdogd/Android.bp. The legacy
 watchdog_break and sswap services referenced binaries absent from both source
 and the pinned vendor snapshot; their stale service definitions are removed.
 Kernel watchdog support is retained. Existing zram setup via swapon_all remains.
+
+## Legacy cgroups and scheduling
+
+Use real cpu/cpuset/memory/freezer v1 controllers. In particular, memory and
+freezer override Android 17's v2 descriptors, unsupported by this Linux 4.4
+configuration. blkio is optional because CONFIG_BLK_CGROUP is disabled.
+Remove the unsupported schedtune controller incorrectly mounted at /dev/cpuset
+and the vendor task-profile overrides targeting it; inherit platform CPU
+scheduling profiles. Let libprocessgroup mount controllers before early-init,
+without mounting a second cpuset hierarchy over its noprefix layout. Update
+Samsung cpuset commands to cpus/mems/family_boost and initialize the extra
+surfaceflinger group before assigning its CPU mask.
+
+Requires kernel cpuset_v2_mode backport documented in ANDROID17-CPUSET.md.

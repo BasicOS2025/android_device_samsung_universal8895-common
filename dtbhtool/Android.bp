@@ -10,13 +10,13 @@ cc_library_host_static {
 cc_binary_host {
     name: "dtbhtoolExynos8895",
     srcs: ["mkdtbimg.c"],
-    static_libs: ["libdtbimg_8895"],
+    static_libs: ["libdtbimg_8895", "libfdt"],
 }
 
 cc_binary_host {
     name: "mkdtbhbootimg8895",
     srcs: ["mkbootimg.c"],
-    static_libs: ["libdtbimg_8895"],
+    static_libs: ["libdtbimg_8895", "libfdt"],
     shared_libs: ["libcrypto"],
     cflags: ["-Wno-deprecated-declarations"],
 }

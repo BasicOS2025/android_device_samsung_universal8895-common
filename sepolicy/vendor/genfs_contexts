@@ -80,7 +80,7 @@ genfscon sysfs /devices/virtual/sensors/hrm_sensor/osc_trim  u:object_r:sysfs_se
 
 genfscon sysfs /devices/virtual/sec/sensorhub/mcu_power             u:object_r:sysfs_sensorhub_writable:s0
 genfscon sysfs /devices/virtual/usb_notify/usb_control/		    u:object_r:sysfs_usb_writable:s0
-genfscon sysfs /devices/virtual/net                                 u:object_r:sysfs_net:s0
+# /devices/virtual/net uses sysfs_net from platform private/genfs_contexts.
 
 genfscon sysfs /firmware/devicetree/base/argos                 u:object_r:sysfs_argos:s0
 genfscon sysfs /firmware/devicetree/base/model_info-system_rev u:object_r:sysfs_info:s0

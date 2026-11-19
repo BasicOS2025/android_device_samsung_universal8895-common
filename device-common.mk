@@ -422,3 +422,6 @@ BOARD_USES_METADATA_PARTITION := true
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal8895-common/universal8895-common-vendor.mk)
+
+# Keep the hardware watchdog serviced through the Android 17 system binary.
+PRODUCT_PACKAGES += watchdogd

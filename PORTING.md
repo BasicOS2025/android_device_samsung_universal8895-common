@@ -19,3 +19,11 @@ The DTBH table size/alignment and optional second-stage padding are corrected.
 The boot validator checks the ARM64 Image, payload SHA-1, Exynos 8895 chip ID,
 DTBH offsets, first-stage init and the 11120000.ufs SYSTEM block path.
 Synthetic host tests do not establish that a ROM boots on physical hardware.
+
+## Init service compatibility
+
+The watchdog daemon is explicitly packaged and started from /system/bin, as
+defined by Android 17 system/core/watchdogd/Android.bp. The legacy
+watchdog_break and sswap services referenced binaries absent from both source
+and the pinned vendor snapshot; their stale service definitions are removed.
+Kernel watchdog support is retained. Existing zram setup via swapon_all remains.

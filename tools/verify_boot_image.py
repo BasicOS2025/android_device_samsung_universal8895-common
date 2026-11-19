@@ -3,11 +3,23 @@
 import argparse
 import gzip
 import hashlib
-import lzma
 from pathlib import Path
 import posixpath
 import stat
 import struct
+import subprocess
+
+
+def decompress_xz(data):
+    try:
+        import lzma
+    except ModuleNotFoundError:
+        # Soong's embedded Python omits _lzma. Keep XZ validation enabled
+        # using the build host's xz-utils instead of skipping the ramdisk.
+        return subprocess.run(['/usr/bin/xz', '--decompress', '--stdout'],
+                              input=data, stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE, check=True).stdout
+    return lzma.decompress(data)
 
 
 def require(condition, message):
@@ -75,7 +87,7 @@ def verify(data, max_size, first_stage=False):
     if not first_stage:
         return
     if ramdisk.startswith(b'\xfd7zXZ\x00'):
-        ramdisk = lzma.decompress(ramdisk)
+        ramdisk = decompress_xz(ramdisk)
     elif ramdisk.startswith(b'\x1f\x8b'):
         ramdisk = gzip.decompress(ramdisk)
     require(len(ramdisk) <= 128 * 1024 * 1024, 'Unexpectedly large first-stage ramdisk')

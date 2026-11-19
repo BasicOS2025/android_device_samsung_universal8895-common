@@ -1,6 +1,7 @@
 cc_library_shared {
     name: "libcamera_compat",
     vendor: true,
+    export_include_dirs: ["."],
 
     srcs: [
         "CameraParameters.cpp",

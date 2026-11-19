@@ -41,6 +41,5 @@ cc_library_shared {
 
     header_libs: [
         "libnativebase_headers",
-        "camera_headers",
     ],
 }

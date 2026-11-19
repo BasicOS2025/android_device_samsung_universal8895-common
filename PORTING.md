@@ -50,3 +50,8 @@ Other scheduling profiles remain inherited from the Android 17 platform.
 Recovery init follows the same noprefix cpuset layout, without remounting
 controllers already owned by libprocessgroup. Cpuset directories use traversable
 0755 modes instead of the legacy 0664 file modes.
+
+The camera wrapper imports CameraParameters from its linked libcamera_compat
+implementation, which now exports its own headers. The removed platform
+camera_headers module is no longer referenced; using the matching local class
+header also avoids coupling the legacy implementation to a newer framework ABI.

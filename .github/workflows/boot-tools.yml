@@ -1,0 +1,16 @@
+name: Validate universal8895 Samsung boot images
+on:
+  workflow_dispatch:
+  push:
+    branches: [lineage-24.0]
+    paths: ['tools/**', 'dtbhtool/**', 'BoardConfigCommon.mk', '.github/workflows/boot-tools.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y libfdt-dev device-tree-compiler libssl-dev
+      - run: python3 tools/test_boot_tools.py

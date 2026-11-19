@@ -1,0 +1,24 @@
+# Copyright (C) 2026 The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+# Samsung's legacy header stores DTBH size where newer headers store version.
+# Use its original packer and never pass modern header/version arguments to it.
+
+EXYNOS8895_DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbhtoolExynos8895
+EXYNOS8895_MKBOOTIMG := $(HOST_OUT_EXECUTABLES)/mkdtbhbootimg8895
+EXYNOS8895_VERIFY_BOOT := $(HOST_OUT_EXECUTABLES)/verify_exynos8895_boot
+EXYNOS8895_DTIMAGE := $(PRODUCT_OUT)/dt.img
+
+$(EXYNOS8895_DTIMAGE): $(EXYNOS8895_DTBTOOL) $(INSTALLED_KERNEL_TARGET)
+	$(EXYNOS8895_DTBTOOL) -o $@ -s $(BOARD_KERNEL_PAGESIZE) --dt_dir $(KERNEL_OUT)/arch/arm64/boot/dts/exynos
+
+$(INSTALLED_BOOTIMAGE_TARGET): $(EXYNOS8895_MKBOOTIMG) $(EXYNOS8895_VERIFY_BOOT) $(EXYNOS8895_DTIMAGE) $(INSTALLED_KERNEL_TARGET) $(INTERNAL_BOOTIMAGE_FILES)
+	$(EXYNOS8895_MKBOOTIMG) --kernel $(INSTALLED_KERNEL_TARGET) --ramdisk $(INSTALLED_RAMDISK_TARGET) --dt $(EXYNOS8895_DTIMAGE) --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --cmdline "$(INTERNAL_KERNEL_CMDLINE)" $(BOARD_MKBOOTIMG_ARGS) --output $@
+	printf 'SEANDROIDENFORCE' >> $@
+	$(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE))
+	$(EXYNOS8895_VERIFY_BOOT) $@ --max-size $(BOARD_BOOTIMAGE_PARTITION_SIZE) --first-stage
+
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(EXYNOS8895_MKBOOTIMG) $(EXYNOS8895_VERIFY_BOOT) $(EXYNOS8895_DTIMAGE) $(recovery_ramdisk) $(recovery_kernel) $(RECOVERYIMAGE_EXTRA_DEPS)
+	$(EXYNOS8895_MKBOOTIMG) --kernel $(recovery_kernel) --ramdisk $(recovery_ramdisk) --dt $(EXYNOS8895_DTIMAGE) --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --cmdline "$(INTERNAL_KERNEL_CMDLINE)" $(BOARD_MKBOOTIMG_ARGS) --output $@
+	printf 'SEANDROIDENFORCE' >> $@
+	$(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE))
+	$(EXYNOS8895_VERIFY_BOOT) $@ --max-size $(BOARD_RECOVERYIMAGE_PARTITION_SIZE)

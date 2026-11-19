@@ -1,0 +1,5 @@
+python_binary_host {
+    name: "verify_exynos8895_boot",
+    main: "verify_boot_image.py",
+    srcs: ["verify_boot_image.py"],
+}

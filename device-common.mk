@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
 
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
-    dtbhtoolExynos
+    dtbhtoolExynos8895
 
 # Gatekeeper
 PRODUCT_PACKAGES += \

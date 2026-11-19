@@ -176,13 +176,18 @@ void *load_dtbh_block(const char *dtb_path, unsigned pagesize, unsigned *_sz)
 #endif
 
         prop_chip = fdt_getprop(dtb, offset, "model_info-chip", &len);
-        if (len % (sizeof(uint32_t)) != 0) {
+        if (!prop_chip || len < (int)sizeof(uint32_t) || len % sizeof(uint32_t) != 0) {
             warnx("model_info-chip of %s is of invalid size, skipping", fname);
             free(dtb);
             continue;
         }
 
         prop_platform = fdt_getprop(dtb, offset, "model_info-platform", &len);
+        if (!prop_platform || len < 1 || ((const char *)prop_platform)[len - 1] != '\0') {
+            warnx("model_info-platform of %s is missing or not terminated, skipping", fname);
+            free(dtb);
+            continue;
+        }
         if (strcmp((char *)&prop_platform[0], DTBH_PLATFORM)) {
             warnx("model_info-platform of %s is invalid, skipping (expected %s but got %s)",
                   fname, DTBH_PLATFORM, (char *)&prop_platform[0]);
@@ -191,6 +196,11 @@ void *load_dtbh_block(const char *dtb_path, unsigned pagesize, unsigned *_sz)
         }
 
         prop_subtype = fdt_getprop(dtb, offset, "model_info-subtype", &len);
+        if (!prop_subtype || len < 1 || ((const char *)prop_subtype)[len - 1] != '\0') {
+            warnx("model_info-subtype of %s is missing or not terminated, skipping", fname);
+            free(dtb);
+            continue;
+        }
         if (strcmp((char *)&prop_subtype[0], DTBH_SUBTYPE)) {
             warnx("model_info-subtype of %s is invalid, skipping (expected %s but got %s)",
                   fname, DTBH_SUBTYPE, (char *)&prop_subtype[0]);
@@ -199,14 +209,14 @@ void *load_dtbh_block(const char *dtb_path, unsigned pagesize, unsigned *_sz)
         }
 
         prop_hw_rev = fdt_getprop(dtb, offset, "model_info-hw_rev", &len);
-        if (len % (sizeof(uint32_t)) != 0) {
+        if (!prop_hw_rev || len < (int)sizeof(uint32_t) || len % sizeof(uint32_t) != 0) {
             warnx("model_info-hw_rev of %s is of invalid size, skipping", fname);
             free(dtb);
             continue;
         }
 
         prop_hw_rev_end = fdt_getprop(dtb, offset, "model_info-hw_rev_end", &len);
-        if (len % (sizeof(uint32_t)) != 0) {
+        if (!prop_hw_rev_end || len < (int)sizeof(uint32_t) || len % sizeof(uint32_t) != 0) {
             warnx("model_info-hw_rev_end of %s is of invalid size, skipping", fname);
             free(dtb);
             continue;
@@ -245,7 +255,7 @@ void *load_dtbh_block(const char *dtb_path, unsigned pagesize, unsigned *_sz)
 
         entry_count++;
 
-        hdr_sz += entry_count * DT_ENTRY_PHYS_SIZE;
+        hdr_sz += DT_ENTRY_PHYS_SIZE;
     }
 
     closedir(dir);
@@ -298,7 +308,7 @@ void *load_dtbh_block(const char *dtb_path, unsigned pagesize, unsigned *_sz)
     }
 
     /* add padding after dt header */
-    offset += pagesize - (offset & pagemask);
+    offset = hdr_sz;
 
     for (blob = blob_list; blob; blob = blob->next) {
         memcpy(dtbh + offset, blob->payload, blob->size);
